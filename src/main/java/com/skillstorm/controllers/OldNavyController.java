@@ -22,7 +22,7 @@ import com.skillstorm.repositories.OldNavyRepository;
 import com.skillstorm.services.OldNavyServices;
 
 @RestController
-@RequestMapping("/OldNavys")
+@RequestMapping("/oldnavy")
 @CrossOrigin("*")
 public class OldNavyController {
 
