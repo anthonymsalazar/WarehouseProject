@@ -22,7 +22,7 @@ import com.skillstorm.repositories.HotTopicRepository;
 import com.skillstorm.services.HotTopicServices;
 
 @RestController
-@RequestMapping("/warehouses")
+@RequestMapping("/hottopic")
 @CrossOrigin("*")
 public class HotTopicController {
 
