@@ -22,7 +22,7 @@ import com.skillstorm.repositories.NikeRepository;
 import com.skillstorm.services.NikeServices;
 
 @RestController
-@RequestMapping("/Nikes")
+@RequestMapping("/nike")
 @CrossOrigin("*")
 public class NikeController {
 
