@@ -1,3 +1,39 @@
+CREATE TABLE `warehouses`.`nike` (
+  `clothing_id` INT NOT NULL,
+  `color` VARCHAR(45) NOT NULL,
+  `size` VARCHAR(45) NOT NULL,
+  `style` VARCHAR(45) NOT NULL,
+  `quantity` VARCHAR(45) NOT NULL,
+  `price` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`clothing_id`));
+
+CREATE TABLE `warehouses`.`old_navy` (
+  `clothing_id` INT NOT NULL,
+  `color` VARCHAR(45) NOT NULL,
+  `size` VARCHAR(45) NOT NULL,
+  `style` VARCHAR(45) NOT NULL,
+  `quantity` VARCHAR(45) NOT NULL,
+  `price` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`clothing_id`));
+
+CREATE TABLE `warehouses`.`patagonia` (
+  `clothing_id` INT NOT NULL,
+  `color` VARCHAR(45) NOT NULL,
+  `size` VARCHAR(45) NOT NULL,
+  `style` VARCHAR(45) NOT NULL,
+  `quantity` VARCHAR(45) NOT NULL,
+  `price` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`clothing_id`));
+
+CREATE TABLE `warehouses`.`hot_topic` (
+  `clothing_id` INT NOT NULL,
+  `color` VARCHAR(45) NOT NULL,
+  `size` VARCHAR(45) NOT NULL,
+  `style` VARCHAR(45) NOT NULL,
+  `quantity` VARCHAR(45) NOT NULL,
+  `price` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`clothing_id`));
+
 INSERT INTO nike
 	(clothing_id, color, size, style, quantity, price)
 VALUES 
