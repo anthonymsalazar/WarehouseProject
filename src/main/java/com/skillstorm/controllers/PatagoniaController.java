@@ -22,7 +22,7 @@ import com.skillstorm.repositories.PatagoniaRepository;
 import com.skillstorm.services.PatagoniaServices;
 
 @RestController
-@RequestMapping("/Patagonias")
+@RequestMapping("/patagonia")
 @CrossOrigin("*")
 public class PatagoniaController {
 
