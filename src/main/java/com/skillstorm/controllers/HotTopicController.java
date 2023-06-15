@@ -59,7 +59,7 @@ public class HotTopicController {
 	@PostMapping
 	public ResponseEntity<String> addItem(@RequestBody HotTopic item){
 		if (repo.existsById(item.getClothingId())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Album with ID " + item.getClothingId() + "already exists");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item with clothing ID " + item.getClothingId() + "already exists");
 		} else {
 			return ResponseEntity.status(HttpStatus.CREATED).body(repo.save(item).getClothingId() + " has been inserted");
 		}
@@ -108,9 +108,9 @@ public class HotTopicController {
 				temp.setPrice(Double.valueOf(price));
 			}
 			repo.save(temp);
-			return ResponseEntity.status(HttpStatus.OK).body("Album with ID " + repo.save(temp).getClothingId() + " has been updated");
+			return ResponseEntity.status(HttpStatus.OK).body("Item with clothing ID " + repo.save(temp).getClothingId() + " has been updated");
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Album with ID " + id + "already exists");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item with clothing ID " + id + "already exists");
 		}
 	}
 
@@ -118,9 +118,9 @@ public class HotTopicController {
     public ResponseEntity<String> deleteItemByPathId(@PathVariable int id) {
         if (repo.existsById(id)) {
             repo.deleteById(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Album with ID of " + id + " was successfully deleted");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Item with clothing ID of " + id + " was successfully deleted");
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Album with ID of " + id + " does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item with clothing ID of " + id + " does not exist");
         }
 	}
 
@@ -129,9 +129,9 @@ public class HotTopicController {
         if (repo.findById(item.getClothingId()).isPresent() &&
                 item.equals(repo.findById(item.getClothingId()).get())) {
             repo.delete(item);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Album sent was successfully deleted");
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Item sent was successfully deleted");
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Album sent does not exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item sent does not exist");
         }
     }
 }
