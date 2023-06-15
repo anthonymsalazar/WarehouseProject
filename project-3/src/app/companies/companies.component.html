@@ -52,10 +52,11 @@
       
     }
 
-    .item-button img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: cover;
+    .image-button {
+      display: inline-block;
+      border: none;
+      background: none;
+      cursor: pointer;
     }
 
     .item-textbox {
@@ -70,41 +71,41 @@
   <div class="banner">
     <h2>Inventory</h2>
   </div>
-
-  <div class="inventory-container">
-    <div class="item-container">
-      <a href="#" class="item-button">
-        <img src="/assets/img/nike.jpg" alt="Item 1">
-      </a>
-      <p>Nike</p>
-    </div>
-
-    <div class="item-container">
-      <a href="#" class="item-button">
-        <img src="/assets/img/ON.png" alt="Item 2">
-      </a>
-      <p>Old Navy</p>
-    </div>
-
-    <div class="item-container">
-      <a href="#" class="item-button">
-        <img src="/assets/img/pata.png" alt="Item 3">
-      </a>
-      <p>Patagonia</p>
-    </div>
-
-    <div class="item-container">
-      <a href="#" class="item-button">
-        <img src="/assets/img/HT.png" alt="Item 4">
-      </a>
-      <p>Hot Topic</p>
-    </div>
-  </div>
-</body>
-
-
-
-
-
-
-
+  <body>
+    <button class="image-button" onclick="handleButtonClick('/patagonia', '/patagonia-page.html')">
+      <img src="src\assets\img\pata.png" alt="Patagonia" width="150" height="150">
+    </button>
+  
+    <button class="image-button" onclick="handleButtonClick('/hottopic', '/hottopic-page.html')">
+      <img src="src\assets\img\HT.png" alt="Hot Topic" width="150" height="150">
+    </button>
+  
+    <button class="image-button" onclick="handleButtonClick('/nike', '/nike-page.html')">
+      <img src="src\assets\img\nike.jpg" alt="Nike" width="150" height="150">
+    </button>
+  
+    <button class="image-button" onclick="handleButtonClick('/oldnavy', '/oldnavy-page.html')">
+      <img src="src\assets\img\ON.png" alt="Old Navy" width="150" height="150">
+    </button>
+  
+    <script>
+      function handleButtonClick(endpoint, redirectUrl) {
+        fetch(endpoint, {
+          method: 'GET',
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not OK');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          window.location.href = redirectUrl;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+    </script>
+  </body>
