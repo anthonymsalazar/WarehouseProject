@@ -15,4 +15,7 @@ public interface PatagoniaRepository extends CrudRepository<Patagonia, Integer> 
 	@Query(value = "SELECT * FROM color LIKE %?1%", nativeQuery = true)
 	public Iterable<Patagonia> findByColorSearchString(String searchString);
 
+	@Query(value = "SELECT COUNT(*) FROM patagonia", nativeQuery = true)
+	public int countItems(String number);
+
 }
