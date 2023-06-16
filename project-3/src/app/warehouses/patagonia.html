@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patagonia Warehouse</title>
+  <style>
+    form {
+      display: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    form.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <button id="updateButton">Update Item</button>
+
+  <form id="updateForm">
+    <label for="itemId">Item ID:</label>
+    <input type="text" id="itemId" name="itemId"><br><br>
+
+    <label for="color">Color:</label>
+    <input type="text" id="color" name="color"><br><br>
+
+    <label for="size">Size:</label>
+    <input type="text" id="size" name="size"><br><br>
+
+    <label for="style">Style:</label>
+    <input type="text" id="style" name="style"><br><br>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity"><br><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price"><br><br>
+
+    <button type="submit">Update</button>
+  </form>
+
+  <button id="addButton">Add Item</button>
+
+  <form id="addItemForm">
+    <label for="clothingId">Clothing ID:</label>
+    <input type="number" id="clothingId" name="clothingId"><br><br>
+
+    <label for="color">Color:</label>
+    <input type="text" id="color" name="color"><br><br>
+
+    <label for="size">Size:</label>
+    <input type="text" id="size" name="size"><br><br>
+
+    <label for="style">Style:</label>
+    <input type="text" id="style" name="style"><br><br>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity"><br><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price"><br><br>
+
+    <button type="submit">Add Item</button>
+  </form>
+
+  <button id="deleteButton">Delete Item</button>
+
+  <form id="deleteForm">
+    <label for="itemId">Item ID:</label>
+    <input type="text" id="itemId" name="itemId"><br><br>
+
+    <button type="submit">Delete</button>
+  </form>
+
+  <script>
+    const updateButton = document.getElementById('updateButton');
+    const updateForm = document.getElementById('updateForm');
+
+    updateButton.addEventListener('click', function() {
+      updateForm.classList.add('active');
+      addItemForm.classList.remove('active');
+      deleteForm.classList.remove('active');
+    });
+
+    updateForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const url = '/patagonia';
+      const itemIdInput = document.getElementById('itemId');
+      const itemId = itemIdInput.value;
+
+      const formData = new FormData(updateForm);
+
+      fetch(`${url}/${itemId}`, {
+        method: 'PUT',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Update successful');
+        } else {
+          console.error('Update failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+
+    const addButton = document.getElementById('addButton');
+    const addItemForm = document.getElementById('addItemForm');
+
+    addButton.addEventListener('click', function() {
+      updateForm.classList.remove('active');
+      addItemForm.classList.add('active');
+      deleteForm.classList.remove('active');
+    });
+
+    addItemForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const url = '/patagonia';
+
+      const formData = new FormData(addItemForm);
+
+      const item = {};
+      for (let [key, value] of formData) {
+        item[key] = value;
+      }
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Item added successfully');
+        } else {
+          console.error('Failed to add item');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+
+    const deleteButton = document.getElementById('deleteButton');
+    const deleteForm = document.getElementById('deleteForm');
+
+    deleteButton.addEventListener('click', function() {
+      updateForm.classList.remove('active');
+      addItemForm.classList.remove('active');
+      deleteForm.classList.add('active');
+    });
+
+    deleteForm.addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      const url = '/patagonia';
+
+      const itemIdInput = document.getElementById('itemId');
+      const itemId = itemIdInput.value;
+
+      fetch(`${url}/${itemId}`, {
+        method: 'DELETE',
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Item deleted successfully');
+        } else {
+          console.error('Failed to delete item');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

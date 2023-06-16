@@ -17,5 +17,4 @@ public interface PatagoniaRepository extends CrudRepository<Patagonia, Integer> 
 
 	@Query(value = "SELECT COUNT(*) FROM patagonia", nativeQuery = true)
 	public int countItems(String number);
-
 }

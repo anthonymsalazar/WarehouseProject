@@ -1,0 +1,111 @@
+<head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .banner {
+      text-align: center;
+      background-image: url("/assets/img/inventory.jpg");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      font-weight: bolder;
+      color: white;
+    }
+
+    .inventory-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding-bottom: 20em;
+    }
+
+    .item-container {
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .item-button {
+      display: block;
+      width: 400px;
+      height: 300px;
+      border: none;
+      background-color: white;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      padding-top: 25em;
+      
+    }
+
+    .image-button {
+      display: inline-block;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .item-textbox {
+      width: 100%;
+      margin-top: 10px;
+      box-sizing: border-box;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <h2>Inventory</h2>
+  </div>
+  <body>
+    <button class="image-button" onclick="handleButtonClick('/patagonia', '/patagonia-page.html')">
+      <img src="assets\img\pata.png" alt="Patagonia" width="150" height="150">
+    </button>
+  
+    <button class="image-button" onclick="handleButtonClick('/hottopic', '/hottopic-page.html')">
+      <img src="assets\img\HT.png" alt="Hot Topic" width="150" height="150">
+    </button>
+  
+    <button class="image-button" onclick="handleButtonClick('/nike', '/nike-page.html')">
+      <img src="assets\img\nike.jpg" alt="Nike" width="150" height="150">
+    </button>
+  
+    <button class="image-button" onclick="handleButtonClick('/oldnavy', '/oldnavy-page.html')">
+      <img src="assets\img\ON.png" alt="Old Navy" width="150" height="150">
+    </button>
+  
+    <script>
+      function handleButtonClick(endpoint, redirectUrl) {
+        fetch(endpoint, {
+          method: 'GET',
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not OK');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          window.location.href = redirectUrl;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+    </script>
+  </body>
