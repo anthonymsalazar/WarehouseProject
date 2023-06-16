@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hot Topic Warehouse</title>
+  
+  <style>
+    form {
+      display: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    form.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h3>Hot Topic Items</h3>
+
+    <table>
+        <thead>
+          <tr>
+            <th>Clothing ID</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Style</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="clothing-items">
+          <!-- Data rows will be inserted here dynamically -->
+        </tbody>
+      </table>
+    
+      <button id="updateButton">Update Item</button>
+    
+      <form id="updateForm">
+        <label for="updateItemId">Item ID:</label>
+        <input type="text" id="updateItemId" name="itemId"><br><br>
+    
+        <label for="updateColor">Color:</label>
+        <input type="text" id="updateColor" name="color"><br><br>
+    
+        <label for="updateSize">Size:</label>
+        <input type="text" id="updateSize" name="size"><br><br>
+    
+        <label for="updateStyle">Style:</label>
+        <input type="text" id="updateStyle" name="style"><br><br>
+    
+        <label for="updateQuantity">Quantity:</label>
+        <input type="number" id="updateQuantity" name="quantity"><br><br>
+    
+        <label for="updatePrice">Price:</label>
+        <input type="number" id="updatePrice" name="price"><br><br>
+    
+        <button type="submit">Update</button>
+      </form>
+    
+      <button id="addButton">Add Item</button>
+    
+      <form id="addItemForm">
+        <label for="addItemClothingId">Clothing ID:</label>
+        <input type="number" id="addItemClothingId" name="clothingId"><br><br>
+    
+        <label for="addItemColor">Color:</label>
+        <input type="text" id="addItemColor" name="color"><br><br>
+    
+        <label for="addItemSize">Size:</label>
+        <input type="text" id="addItemSize" name="size"><br><br>
+    
+        <label for="addItemStyle">Style:</label>
+        <input type="text" id="addItemStyle" name="style"><br><br>
+    
+        <label for="addItemQuantity">Quantity:</label>
+        <input type="number" id="addItemQuantity" name="quantity"><br><br>
+    
+        <label for="addItemPrice">Price:</label>
+        <input type="number" id="addItemPrice" name="price"><br><br>
+    
+        <button type="submit">Add Item</button>
+      </form>
+    
+      <button id="deleteButton">Delete Item</button>
+    
+      <form id="deleteForm">
+        <label for="deleteItemId">Item ID:</label>
+        <input type="text" id="deleteItemId" name="itemId"><br><br>
+    
+        <button type="submit">Delete</button>
+      </form>
+    
+      <script>
+        $(document).ready(function() {
+          // Fetch data from the backend with optional query parameters
+          var url = "/clothing-items";
+          var queryParams = {};
+    
+          var sizeSearchString = "your_size_search_value";
+          var colorSearchString = "your_color_search_value";
+    
+          if (sizeSearchString) {
+            queryParams.sizeSearch = sizeSearchString;
+          } else if (colorSearchString) {
+            queryParams.colorSearch = colorSearchString;
+          }
+    
+          $.get(url, queryParams, function(data) {
+            data.forEach(function(item) {
+              // Create a row for each clothing item
+              var row = "<tr>" +
+                "<td>" + item.clothingId + "</td>" +
+                "<td>" + item.color + "</td>" +
+                "<td>" + item.size + "</td>" +
+                "<td>" + item.style + "</td>" +
+                "<td>" + item.quantity + "</td>" +
+                "<td>" + item.price + "</td>" +
+                "</tr>";
+              $("#clothing-items").append(row);
+            });
+          });
+        });
+    
+        const updateButton = document.getElementById('updateButton');
+        const updateForm = document.getElementById('updateForm');
+    
+        updateButton.addEventListener('click', function() {
+          updateForm.classList.add('active');
+          addItemForm.classList.remove('active');
+          deleteForm.classList.remove('active');
+        });
+    
+        updateForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+    
+          const url = '/hottopic';
+          const itemIdInput = document.getElementById('updateItemId');
+          const itemId = itemIdInput.value;
+    
+          const formData = new FormData(updateForm);
+    
+          fetch(`${url}/${itemId}`, {
+            method: 'PUT',
+            body: formData
+          })
+            .then(response => {
+              if (response.ok) {
+                console.log('Update successful');
+              } else {
+                console.error('Update failed');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        });
+    
+        const addButton = document.getElementById('addButton');
+        const addItemForm = document.getElementById('addItemForm');
+    
+        addButton.addEventListener('click', function() {
+          updateForm.classList.remove('active');
+          addItemForm.classList.add('active');
+          deleteForm.classList.remove('active');
+        });
+    
+        addItemForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+    
+          const url = '/hottopic';
+    
+          const formData = new FormData(addItemForm);
+    
+          const item = {};
+          for (let [key, value] of formData) {
+            item[key] = value;
+          }
+    
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+          })
+            .then(response => {
+              if (response.ok) {
+                console.log('Item added successfully');
+              } else {
+                console.error('Failed to add item');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        });
+    
+        const deleteButton = document.getElementById('deleteButton');
+        const deleteForm = document.getElementById('deleteForm');
+    
+        deleteButton.addEventListener('click', function() {
+          updateForm.classList.remove('active');
+          addItemForm.classList.remove('active');
+          deleteForm.classList.add('active');
+        });
+    
+        deleteForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+    
+          const url = '/hottopic';
+    
+          const itemIdInput = document.getElementById('deleteItemId');
+          const itemId = itemIdInput.value;
+    
+          fetch(`${url}/${itemId}`, {
+            method: 'DELETE',
+          })
+            .then(response => {
+              if (response.ok) {
+                console.log('Item deleted successfully');
+              } else {
+                console.error('Failed to delete item');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        });
+      </script>
+    </body>
+    </html>

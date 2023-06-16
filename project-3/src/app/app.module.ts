@@ -11,6 +11,12 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CompaniesComponent } from './companies/companies.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HottopicComponent } from './hottopic/hottopic.component';
+import { NikeComponent } from './nike/nike.component';
+import { OldnavyComponent } from './oldnavy/oldnavy.component';
+import { PatagoniaComponent } from './patagonia/patagonia.component'
+
 
 @NgModule({
   declarations: [
@@ -22,12 +28,18 @@ import { CompaniesComponent } from './companies/companies.component';
     ContactComponent,
     AboutUsComponent,
     CompaniesComponent,
+    HottopicComponent,
+    NikeComponent,
+    OldnavyComponent,
+    PatagoniaComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
