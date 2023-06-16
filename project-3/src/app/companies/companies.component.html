@@ -1,4 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locations</title>
   <style>
     body {
       display: flex;
@@ -6,6 +11,25 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      max-width: 60%;
+      max-height: 60%;
+      padding-top: 7em;
+    }
+
+    .text {
+      font-size: 20px;
+      padding-left: 0.5em;
+      padding-right: 20em;
+      padding-bottom: 10em;
+      text-align: center;
     }
 
     .banner {
@@ -49,7 +73,7 @@
       cursor: pointer;
       border-radius: 4px;
       padding-top: 25em;
-      
+
     }
 
     .image-button {
@@ -69,43 +93,27 @@
 </head>
 <body>
   <div class="banner">
-    <h2>Inventory</h2>
+    <h2>Location</h2>
   </div>
-  <body>
-    <button class="image-button" onclick="handleButtonClick('/patagonia', '/patagonia-page.html')">
-      <img src="assets\img\pata.png" alt="Patagonia" width="150" height="150">
-    </button>
-  
-    <button class="image-button" onclick="handleButtonClick('/hottopic', '/hottopic-page.html')">
-      <img src="assets\img\HT.png" alt="Hot Topic" width="150" height="150">
-    </button>
-  
-    <button class="image-button" onclick="handleButtonClick('/nike', '/nike-page.html')">
-      <img src="assets\img\nike.jpg" alt="Nike" width="150" height="150">
-    </button>
-  
-    <button class="image-button" onclick="handleButtonClick('/oldnavy', '/oldnavy-page.html')">
-      <img src="assets\img\ON.png" alt="Old Navy" width="150" height="150">
-    </button>
-  
-    <script>
-      function handleButtonClick(endpoint, redirectUrl) {
-        fetch(endpoint, {
-          method: 'GET',
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not OK');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log(data);
-          window.location.href = redirectUrl;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      }
-    </script>
+<div class="img-one">
+    <a href="/patagonia">
+      <img class="alignnone size-full wp-image-1303" src="assets\img\pata.png" alt="" width="150" height="150" />
+    </a>
+  </div>
+  <div class="img-two">
+    <a href="/hottopic">
+      <img class="alignnone size-full wp-image-1303" src="assets\img\HT.png" alt="" width="150" height="150" />
+    </a>
+  </div>
+  <div class="img-three">
+    <a href="/nike">
+      <img class="alignnone size-full wp-image-1303" src="assets\img\nike.jpg" alt="" width="150" height="150" />
+    </a>
+  </div>
+  <div class="img-four">
+    <a href="/oldnavy">
+      <img class="alignnone size-full wp-image-1303" src="assets\img\ON.png" alt="" width="150" height="150" />
+    </a>
+  </div>
   </body>
+</html>
