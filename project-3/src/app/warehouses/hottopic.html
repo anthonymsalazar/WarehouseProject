@@ -5,9 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hot Topic Warehouse</title>
 </head>
-<body>
-    <button>ADD ITEM</button>
-    <button>UPDATE ITEM</button>
-    <button>DELETE ITEM</button>
+    <body>
+        <button id="updateButton">Update Item</button>
+
+        <form id="updateForm">
+        <label for="itemId">Item ID:</label>
+        <input type="text" id="itemId" name="itemId"><br><br>
+
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color"><br><br>
+
+        <label for="size">Size:</label>
+        <input type="text" id="size" name="size"><br><br>
+
+        <label for="style">Style:</label>
+        <input type="text" id="style" name="style"><br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity"><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price"><br><br>
+
+        <button type="submit">Update</button>
+        </form>
+
+        <script>
+            const updateButton = document.getElementById('updateButton');
+            const updateForm = document.getElementById('updateForm');
+
+            updateButton.addEventListener('click', function() {
+            window.location.href = '#updateForm';
+            });
+
+        updateForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const url = '/hottopic';
+        const itemIdInput = document.getElementById('itemId');
+        const itemId = itemIdInput.value;
+
+        const formData = new FormData(updateForm);
+
+        fetch(`${url}/${itemId}`, {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Update successful');
+                } else {
+                    console.error('Update failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+    <button id="addButton">Add Item</button>
+
+    <form id="addItemForm">
+      <label for="clothingId">Clothing ID:</label>
+      <input type="number" id="clothingId" name="clothingId"><br><br>
+  
+      <label for="color">Color:</label>
+      <input type="text" id="color" name="color"><br><br>
+  
+      <label for="size">Size:</label>
+      <input type="text" id="size" name="size"><br><br>
+  
+      <label for="style">Style:</label>
+      <input type="text" id="style" name="style"><br><br>
+  
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity"><br><br>
+  
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price"><br><br>
+  
+      <button type="submit">Add Item</button>
+    </form>
+  
+    <script>
+      const addButton = document.getElementById('addButton');
+      const addItemForm = document.getElementById('addItemForm');
+  
+      addButton.addEventListener('click', function() {
+        window.location.href = '#addItemForm';
+      });
+  
+      addItemForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        const url = '/hottopic';
+  
+        const formData = new FormData(addItemForm);
+  
+        const item = {};
+        for (let [key, value] of formData) {
+          item[key] = value;
+        }
+  
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        })
+          .then(response => {
+            if (response.ok) {
+              console.log('Item added successfully');
+            } else {
+              console.error('Failed to add item');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    </script>
+    <button id="deleteButton">Delete Item</button>
+
+    <form id="deleteForm">
+      <label for="itemId">Item ID:</label>
+      <input type="text" id="itemId" name="itemId"><br><br>
+  
+      <button type="submit">Delete</button>
+    </form>
+  
+    <script>
+      const deleteButton = document.getElementById('deleteButton');
+      const deleteForm = document.getElementById('deleteForm');
+  
+      deleteButton.addEventListener('click', function() {
+        window.location.href = '#deleteForm';
+      });
+  
+      deleteForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+  
+        const url = '/hottopic';
+  
+        const itemIdInput = document.getElementById('itemId');
+        const itemId = itemIdInput.value;
+  
+        fetch(`${url}/${itemId}`, {
+          method: 'DELETE',
+        })
+          .then(response => {
+            if (response.ok) {
+              console.log('Item deleted successfully');
+            } else {
+              console.error('Failed to delete item');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    </script>
 </body>
 </html>
